@@ -459,7 +459,7 @@
  */
 .post-content .img-left img,
 .post-content .img-right img {
-  height: calc(6 * 1.75rem - 1.5rem);
+  height: calc(6 * 1.75rem - 1.3rem);
   object-fit: cover;
 }
 
