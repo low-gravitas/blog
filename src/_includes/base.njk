@@ -67,5 +67,38 @@
 })();
 </script>
 
+
+<script>
+(function () {
+  var dlg = document.createElement('dialog');
+  dlg.className = 'img-lightbox';
+  dlg.setAttribute('aria-label', 'Image lightbox');
+  var dlgImg = document.createElement('img');
+  dlg.appendChild(dlgImg);
+  document.body.appendChild(dlg);
+
+  function openLightbox(href, alt) {
+    dlgImg.src = href;
+    dlgImg.alt = alt || '';
+    dlg.showModal();
+  }
+
+  // Close when clicking the backdrop (outside the image)
+  dlg.addEventListener('click', function (e) {
+    if (e.target === dlg) dlg.close();
+  });
+
+  // Wire each img-link anchor
+  document.querySelectorAll('a.img-link').forEach(function (link) {
+    link.setAttribute('aria-haspopup', 'dialog');
+    var thumb = link.querySelector('img');
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      openLightbox(link.href, thumb ? thumb.alt : '');
+    });
+  });
+})();
+</script>
+
 </body>
 </html>

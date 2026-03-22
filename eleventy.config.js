@@ -41,9 +41,28 @@ export default function (eleventyConfig) {
     return `${minutes} min read`;
   });
 
+  // ── Shortcodes ───────────────────────────────────────────────────────────
+
+  // {% image "img/bird.jpg", "Alt text", "left", "Optional caption" %}
+  eleventyConfig.addShortcode("image", function (src, alt, layout, caption) {
+    layout = layout || "center";
+    const fullSrc = `/${src}`;
+    const captionHtml = caption
+      ? `\n  <figcaption>${caption}</figcaption>`
+      : "";
+    return (
+      `<figure class="img-${layout}">` +
+      `\n  <a href="${fullSrc}" class="img-link">` +
+      `\n    <img src="${fullSrc}" alt="${alt}" loading="lazy">` +
+      `\n  </a>${captionHtml}` +
+      `\n</figure>`
+    );
+  });
+
   // ── Passthrough copies ───────────────────────────────────────────────────
 
   eleventyConfig.addPassthroughCopy("src/css");
+  eleventyConfig.addPassthroughCopy("src/img");
   eleventyConfig.addPassthroughCopy({ "src/images": "images" });
 
   // ── Markdown ─────────────────────────────────────────────────────────────
