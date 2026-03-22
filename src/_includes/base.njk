@@ -6,7 +6,7 @@
 <meta name="color-scheme" content="dark light">
 <meta name="description" content="{{ description or 'Low Gravitas Blog — warm, low-blue-light themes and tools for developers.' }}">
 <title>{% if title %}{{ title }} — {% endif %}Low Gravitas Blog</title>
-<link rel="preload" href="https://low-gravitas.github.io/LowGravitasSymbols.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/LowGravitasSymbols.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="stylesheet" href="https://low-gravitas.github.io/low-gravitas-zen.css">
 <link rel="stylesheet" href="https://low-gravitas.github.io/low-gravitas-common.css">
 <link rel="stylesheet" href="/css/blog.css">
@@ -14,7 +14,7 @@
 <style>
 @font-face {
   font-family: 'LowGravitasSymbols';
-  src: url('https://low-gravitas.github.io/LowGravitasSymbols.ttf') format('truetype');
+  src: url('/LowGravitasSymbols.ttf') format('truetype');
   font-display: swap;
 }
 </style>
@@ -29,7 +29,6 @@
     <a href="/blog/">Blog</a>
     <a href="https://lowgravitas.com/low-gravitas-zen-theme/">Zen Theme</a>
     <a href="https://lowgravitas.com/low-gravitas-symbol-font/">Symbol Font</a>
-    <a href="https://github.com/low-gravitas/blog">GitHub</a>
     <button id="theme-toggle" aria-label="Toggle light/dark theme"></button>
   </div>
 </nav>
