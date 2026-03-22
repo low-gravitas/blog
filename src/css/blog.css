@@ -431,7 +431,7 @@
 /* Float left */
 .post-content .img-left {
   float: left;
-  width: 40%;
+  width: 45%;
   margin: 0 1.5em 0 0;
   clear: left;
 }
@@ -439,7 +439,7 @@
 /* Float right */
 .post-content .img-right {
   float: right;
-  width: 40%;
+  width: 45%;
   margin: 0 0 0 1.5em;
   clear: right;
 }
@@ -459,7 +459,7 @@
  */
 .post-content .img-left img,
 .post-content .img-right img {
-  height: calc(6 * 1.75rem - 1.3rem);
+  height: calc(7 * 1.75rem - 1.3rem);
   object-fit: cover;
 }
 
