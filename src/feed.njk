@@ -1,0 +1,26 @@
+---
+permalink: feed.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+  <title>Low Gravitas Blog</title>
+  <subtitle>Warm, low-blue-light themes and tools for developers.</subtitle>
+  <link href="{{ '/feed.xml' | absoluteUrl('https://lowgravitas.com/blog') }}" rel="self"/>
+  <link href="{{ '/' | absoluteUrl('https://lowgravitas.com/blog') }}"/>
+  <updated>{{ collections.posts | getNewestCollectionItemDate | dateToRfc3339 }}</updated>
+  <id>https://lowgravitas.com/blog/</id>
+  <author>
+    <name>Low Gravitas</name>
+  </author>
+  {% for post in collections.posts | reverse %}
+  <entry>
+    <title>{{ post.data.title }}</title>
+    <link href="{{ post.url | absoluteUrl('https://lowgravitas.com/blog') }}"/>
+    <updated>{{ post.date | dateToRfc3339 }}</updated>
+    <id>{{ post.url | absoluteUrl('https://lowgravitas.com/blog') }}</id>
+    {% if post.data.description %}<summary>{{ post.data.description }}</summary>{% endif %}
+    <content type="html">{{ post.templateContent | htmlToAbsoluteUrls(post.url | absoluteUrl('https://lowgravitas.com/blog')) }}</content>
+  </entry>
+  {% endfor %}
+</feed>

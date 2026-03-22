@@ -1,0 +1,474 @@
+/* Low Gravitas Blog — blog-specific styles
+   Depends on low-gravitas-zen.css and low-gravitas-common.css */
+
+/* ── Blog index ──────────────────────────────────────────────────────────── */
+
+.post-index {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.post-index-header {
+  margin-bottom: 40px;
+}
+
+.post-index-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.post-index-tagline {
+  color: var(--text-dim);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-bottom: 40px;
+}
+
+.post-summary {
+  border-bottom: 1px solid var(--border-dim);
+  padding-bottom: 32px;
+}
+
+.post-summary:last-child {
+  border-bottom: none;
+}
+
+.post-summary h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.post-summary h2 a {
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.post-summary h2 a:hover {
+  color: var(--accent);
+}
+
+.post-excerpt {
+  color: var(--text-dim);
+  font-size: 0.925rem;
+  line-height: 1.6;
+  margin-top: 8px;
+}
+
+.post-empty {
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.feed-link {
+  margin-top: 8px;
+}
+
+/* ── Post meta (shared between index and post view) ──────────────────────── */
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+
+.post-meta time {
+  font-family: "SF Mono", "Fira Code", "JetBrains Mono", "Menlo", monospace;
+}
+
+.post-author::before {
+  content: "·";
+  margin-right: 12px;
+}
+
+.post-reading-time {
+  color: var(--text-dim);
+}
+
+.post-reading-time::before {
+  content: "·";
+  margin-right: 12px;
+}
+
+/* ── Full post layout ────────────────────────────────────────────────────── */
+
+.post {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px 64px;
+}
+
+.post-header {
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border-dim);
+}
+
+.post-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+  margin-bottom: 12px;
+}
+
+.post-description {
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-top: 12px;
+}
+
+/* ── Post content typography ─────────────────────────────────────────────── */
+
+.post-content {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.post-content h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--lgz-bright-blue);
+  margin: 2em 0 0.6em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--border-dim);
+}
+
+.post-content h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--lgz-yellow);
+  margin: 1.6em 0 0.5em;
+}
+
+.post-content h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 1.4em 0 0.4em;
+}
+
+.post-content p {
+  margin: 0 0 1.2em;
+}
+
+.post-content ul,
+.post-content ol {
+  margin: 0 0 1.2em 1.5em;
+}
+
+.post-content li {
+  margin-bottom: 0.4em;
+}
+
+.post-content li > ul,
+.post-content li > ol {
+  margin-top: 0.4em;
+  margin-bottom: 0.4em;
+}
+
+.post-content strong {
+  font-weight: 600;
+  color: var(--lgz-bright-white);
+}
+
+.post-content em {
+  font-style: italic;
+  color: var(--text);
+}
+
+.post-content a {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.post-content a:hover {
+  color: var(--accent);
+}
+
+.post-content blockquote {
+  border-left: 3px solid var(--accent);
+  margin: 1.5em 0;
+  padding: 0.5em 0 0.5em 1.25em;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.post-content blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.post-content hr {
+  border: none;
+  border-top: 1px solid var(--border-dim);
+  margin: 2.5em 0;
+}
+
+/* ── Inline code ─────────────────────────────────────────────────────────── */
+
+.post-content :not(pre) > code {
+  font-family: "SF Mono", "Fira Code", "JetBrains Mono", "Menlo", monospace;
+  font-size: 0.875em;
+  background: var(--surface);
+  border: 1px solid var(--border-dim);
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+  color: var(--lgz-bright-green);
+}
+
+/* ── Code blocks (Prism-compatible, Zen theme colors) ────────────────────── */
+
+.post-content pre {
+  background: var(--bg) !important;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.25em 1.5em;
+  margin: 1.5em 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.post-content pre code {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  font-size: inherit;
+  font-family: "SF Mono", "Fira Code", "JetBrains Mono", "Menlo", monospace;
+  color: var(--lgz-white);
+}
+
+/* Prism token colors — mapped to Zen palette */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: var(--lgz-blue);
+  font-style: italic;
+}
+
+.token.punctuation {
+  color: var(--text-dim);
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: var(--lgz-bright-red);
+}
+
+.token.boolean,
+.token.number {
+  color: var(--lgz-bright-yellow);
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: var(--lgz-green);
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+  color: var(--lgz-bright-cyan);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
+  color: var(--lgz-bright-blue);
+}
+
+.token.keyword {
+  color: var(--lgz-bright-red);
+  font-weight: 500;
+}
+
+.token.regex,
+.token.important {
+  color: var(--lgz-bright-magenta);
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+/* Language label on code blocks */
+.post-content pre[class*="language-"] {
+  position: relative;
+}
+
+/* ── Images ──────────────────────────────────────────────────────────────── */
+
+.post-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+  border: 1px solid var(--border-dim);
+  margin: 1.5em auto;
+}
+
+.post-content figure {
+  margin: 1.5em 0;
+}
+
+.post-content figcaption {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  margin-top: 8px;
+}
+
+/* ── Post footer ─────────────────────────────────────────────────────────── */
+
+.post-footer {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-dim);
+}
+
+.post-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.15s;
+}
+
+.post-back:hover {
+  color: var(--link);
+}
+
+.post-back .lg {
+  font-size: 12px;
+}
+
+/* ── Page layout ─────────────────────────────────────────────────────────── */
+
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px 64px;
+}
+
+.page h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-dim);
+}
+
+.page-content {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.page-content h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--lgz-bright-blue);
+  margin: 1.8em 0 0.5em;
+}
+
+.page-content p {
+  margin: 0 0 1.2em;
+}
+
+.page-content ul,
+.page-content ol {
+  margin: 0 0 1.2em 1.5em;
+}
+
+.page-content li {
+  margin-bottom: 0.4em;
+}
+
+.page-content a {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.page-content a:hover {
+  color: var(--accent);
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .post,
+  .post-index,
+  .page {
+    padding: 32px 16px 48px;
+  }
+
+  .post-header h1,
+  .post-index-header h1,
+  .page h1 {
+    font-size: 1.6rem;
+  }
+
+  .post-content pre {
+    border-radius: 4px;
+    padding: 1em;
+    font-size: 0.8rem;
+    margin-left: -16px;
+    margin-right: -16px;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+  }
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .post-summary h2 a,
+  .post-back {
+    transition: none;
+  }
+}
