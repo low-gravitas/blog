@@ -4,7 +4,8 @@
   "description": "Low Gravitas Blog — warm, low-blue-light themes and tools for developers.",
   "type": "module",
   "scripts": {
-    "build": "eleventy",
+    "dev": "eleventy --serve",
+    "build": "NODE_ENV=production eleventy",
     "start": "eleventy --serve",
     "debug": "DEBUG=Eleventy* eleventy"
   },

@@ -1,53 +1,81 @@
 ---
-title: Image layout test
+title: Blog features reference
 date: 2026-03-22
 author: Mike Abney
-description: Demonstrating the four image layout modes — full, center, left float, and right float — with click-to-zoom lightbox.
+description: A comprehensive reference for all blog features — images, code blocks, typography, and frontmatter options.
 layout: post.njk
 ---
 
-This post tests the image embedding system. All four layout modes are shown below, along with the lightbox (click any image to zoom). The bird photo is used throughout.
+This post documents all the features available when writing blog posts. Use it as a reference when authoring new content.
 
-## Full width
+## Frontmatter fields
 
-A full-width image spans the entire content column. Good for hero shots, panoramas, or any image where you want maximum visual impact.
+Every post starts with YAML frontmatter between `---` fences. Available fields:
 
-{% image "img/bird.jpg", "A bird perched on a branch, shot against soft bokeh foliage", "full", "Full-width — the image spans the entire content column" %}
+- **`title`** (required) — the post title, shown on the index and as the page heading
+- **`date`** (required) — publication date in `YYYY-MM-DD` format
+- **`author`** — author name, shown in post meta (defaults to nothing if omitted)
+- **`description`** — a short summary shown on the index card and in the HTML meta description
+- **`layout`** — which template to use (`post.njk` for blog posts, `page.njk` for static pages)
+- **`draft`** — set to `true` to hide the post from production builds; visible locally with `npm run dev`
+- **`tags`** — list of tags for future taxonomy support (not yet rendered, but captured in data)
+- **`category`** — broad topic category for future navigation (not yet rendered)
 
-The image above fills the content width and breaks the rhythm of the text deliberately. Use it sparingly — one per post section at most.
+## Images
 
-## Centered block
+Four layout modes are available via the `image` shortcode:
 
-A centered image sits in the middle of the column at 80% width. Text runs above and below it, not alongside. Good for diagrams, screenshots, and square-ish photos where wrapping text would look awkward.
+```text
+{% raw %}{% image "img/photo.jpg", "Alt text", "layout", "Optional caption" %}{% endraw %}
+```
 
-Some preceding text to establish context. The image below is centered at 80% of the content width, with the caption underneath.
+Layout options: `full`, `center`, `left`, `right`.
 
-{% image "img/bird.jpg", "A bird perched on a branch, facing left", "center", "Center — 80% width, no text wrapping" %}
+### Full width
 
-The paragraph continues after the image. On screens narrower than 900px, center images expand to full width automatically.
+{% image "img/bird.jpg", "Two tufted titmice on a Birdfy feeder", "full", "Full-width — spans the entire content column" %}
 
-## Float left
+### Centered block
 
-A left-floated image sits at 40% width with text wrapping around its right side. This is the most readable layout for portrait photos and pull-quote style images alongside running prose.
+{% image "img/bird.jpg", "Birds at the feeder, centered", "center", "Center — 80% width, no text wrapping" %}
 
-{% image "img/bird.jpg", "A bird with ruffled feathers perched on a mossy branch", "left", "Left float — text wraps to the right" %}
+### Float left
 
-Notice how this paragraph wraps around the right side of the image. For this to work well you need enough text — at least three or four lines of body copy alongside the image. The palette behind Low Gravitas leans into warm ochres and muted greens, which is why a bird in natural light fits so naturally into the aesthetic. The warm background tones of `--lgz-bg-deep` and the cool blue of `--lgz-bright-blue` for headings come directly from the same instinct: reduce blue channel fatigue while preserving contrast where it matters. A floated image sitting in the flow of text is one of the oldest tricks in editorial typography, and it still works when the image earns its place.
+{% image "img/bird.jpg", "Bird on a blue perch", "left", "Left float — text wraps right" %}
 
-This paragraph follows after the float clears. The clearfix on `.post-content::after` ensures the section boundary is respected even if the image is taller than the adjacent text.
+Text wraps around the right side of a left-floated image. The image height is snapped to a multiple of the text line-height so text flows cleanly underneath without partial-line gaps. This uses `object-fit: cover` with a calculated height based on the baseline grid. At mobile widths, all floated images collapse to full width.
 
-## Float right
+### Float right
 
-A right-floated image mirrors the left variant — 40% width, text wraps on the left side.
+{% image "img/bird.jpg", "Bird in warm afternoon light", "right", "Right float — text wraps left" %}
 
-{% image "img/bird.jpg", "A bird in profile, feathers catching warm afternoon light", "right", "Right float — text wraps to the left" %}
+Right floats mirror the left variant. Text wraps on the left side. Good for balancing a page that already uses a left float, or when the image subject faces into the text. The float margin keeps the image flush with the content edge while giving prose room to breathe.
 
-This paragraph wraps to the left of the image. Right floats work well when you want to balance a page that has already used a left float, or when the image has a directional subject that naturally faces into the text. Typographically, the float margin is set to `1.75em` on the text side and `0` on the outer edge, keeping the image flush with the content boundary while giving the prose room to breathe. At mobile widths all four layout modes collapse to full-width — the float is cleared, the width becomes 100%, and the reading experience stays linear.
+All images are clickable — tap or click to open a lightbox. Press Escape or click outside to close. Keyboard users: Tab to an image, press Enter to open, Escape to close (focus returns to the image).
 
 ## Code blocks
 
-Code blocks use the Zen theme palette for syntax highlighting. Here's a Python example:
+Fenced code blocks get syntax highlighting via Prism with the Zen theme palette. Several optional features are available.
 
+### Basic code block
+
+A plain fenced code block with a language specified:
+
+```python
+def greet(name: str) -> str:
+    """Return a warm greeting."""
+    return f"Hello, {name}! Welcome to Low Gravitas."
+
+print(greet("world"))
+```
+
+The language label appears automatically in the top-left. Hover over any code block to reveal the **Copy** button in the top-right.
+
+### Code block with title
+
+Use an HTML comment before the fence to add a title (shown instead of the language label):
+
+<!-- code-meta: {"title": "fibonacci.py"} -->
 ```python
 from typing import Generator
 
@@ -57,15 +85,12 @@ def fibonacci(n: int) -> Generator[int, None, None]:
     for _ in range(n):
         yield a
         a, b = b, a + b
-
-# Print the first 10
-for i, value in enumerate(fibonacci(10)):
-    print(f"  F({i}) = {value}")
 ```
 
-And some JavaScript:
+### Code block with line numbers
 
-```js
+<!-- code-meta: {"lineNumbers": true} -->
+```javascript
 async function fetchTheme(name) {
   const res = await fetch(`/api/themes/${name}`);
   if (!res.ok) throw new Error(`Theme not found: ${name}`);
@@ -77,8 +102,89 @@ const { palette } = await fetchTheme('low-gravitas-zen');
 console.log(`Loaded ${Object.keys(palette).length} color tokens`);
 ```
 
-Inline code like `--lgz-bg-deep` and `var(--accent)` uses a slightly different style — a subtle background with a green tint.
+### Code block with highlighted lines
+
+<!-- code-meta: {"highlight": "3,5-7", "lineNumbers": true, "title": "config.js — key lines highlighted"} -->
+```javascript
+export default {
+  dir: { input: 'src', output: '_site' },
+  pathPrefix: '/blog/',
+  templateFormats: ['njk', 'md', 'html'],
+  markdownTemplateEngine: 'njk',
+  htmlTemplateEngine: 'njk',
+  dataTemplateEngine: 'njk',
+};
+```
+
+### Code block without language label
+
+<!-- code-meta: {"noLang": true} -->
+```text
+This is a plain text block with no language label.
+Useful for terminal output or other unlabeled content.
+```
+
+### Code meta options reference
+
+Place an HTML comment directly before the code fence:
+
+```text
+<!-- code-meta: {"title": "filename.py", "lineNumbers": true, "highlight": "1,3-5", "noLang": true} -->
+```
+
+All fields are optional:
+
+- **`title`** — displayed in place of the language label
+- **`lineNumbers`** — `true` to show line numbers
+- **`highlight`** — comma-separated line numbers or ranges (e.g., `"1,3-5,8"`)
+- **`noLang`** — `true` to hide the language label entirely
+
+## Inline formatting
+
+Standard markdown formatting: **bold text**, *italic text*, ~~strikethrough~~, and `inline code` with a green tint. Links look [like this](/) and have an underline offset for readability.
+
+> Blockquotes use a left accent border and dimmed italic text. Good for callouts, quotes, or asides.
+
+Horizontal rules separate sections:
 
 ---
 
-All images are clickable — a native `<dialog>` lightbox opens with a blurred backdrop. Escape closes it. The `<a class="img-link">` wrapper also provides progressive enhancement: without JavaScript, clicking navigates directly to the source image.
+## Lists
+
+Unordered lists:
+
+- First item with enough text to show wrapping behavior on narrower screens
+- Second item
+- Third item with a nested list:
+  - Nested item one
+  - Nested item two
+
+Ordered lists:
+
+1. First step
+2. Second step
+3. Third step
+
+## Draft posts
+
+Add `draft: true` to frontmatter to mark a post as a draft:
+
+```yaml
+---
+title: My draft post
+draft: true
+---
+```
+
+Drafts are visible when running `npm run dev` locally (with a yellow "DRAFT" badge on the index). They are excluded from production builds (`npm run build`) and won't appear on the deployed site.
+
+## Local development
+
+Run the blog locally:
+
+```bash
+npm run dev     # Start dev server with hot reload (drafts visible)
+npm run build   # Production build (drafts excluded)
+```
+
+The dev server runs at `http://localhost:8080/blog/` with live reload on file changes.

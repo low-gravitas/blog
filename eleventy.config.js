@@ -2,13 +2,12 @@ import pluginRss from "@11ty/eleventy-plugin-rss";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import markdownIt from "markdown-it";
 
+const isProduction = process.env.NODE_ENV === "production";
+
 export default function (eleventyConfig) {
   // ── Plugins ──────────────────────────────────────────────────────────────
 
-  // RSS plugin — adds absoluteUrl, dateToRfc3339, htmlToAbsoluteUrls filters
   eleventyConfig.addPlugin(pluginRss);
-
-  // Syntax highlighting (Prism-based, CSS is in src/css/blog.css)
   eleventyConfig.addPlugin(syntaxHighlight);
 
   // ── Collections ──────────────────────────────────────────────────────────
@@ -16,6 +15,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addCollection("posts", function (collectionApi) {
     return collectionApi
       .getFilteredByGlob("src/posts/*.md")
+      .filter((post) => !isProduction || !post.data.draft)
       .sort((a, b) => b.date - a.date);
   });
 
@@ -56,6 +56,34 @@ export default function (eleventyConfig) {
       `\n    <img src="${fullSrc}" alt="${alt}" loading="lazy">` +
       `\n  </a>${captionHtml}` +
       `\n</figure>`
+    );
+  });
+
+  // ── Transforms ───────────────────────────────────────────────────────────
+
+  // Post-process HTML to enhance code blocks with metadata attributes
+  eleventyConfig.addTransform("codeBlockEnhance", function (content) {
+    if (!this.page.outputPath || !this.page.outputPath.endsWith(".html")) {
+      return content;
+    }
+
+    // Process <!-- code-meta: {...} --> comments preceding <pre> blocks
+    // This lets markdown posts control code block features via HTML comments
+    return content.replace(
+      /<!--\s*code-meta:\s*(\{[^}]+\})\s*-->\s*(<pre\b)/g,
+      (match, jsonStr, preTag) => {
+        try {
+          const meta = JSON.parse(jsonStr);
+          const attrs = [];
+          if (meta.title) attrs.push(`data-title="${meta.title}"`);
+          if (meta.lineNumbers) attrs.push('data-line-numbers');
+          if (meta.highlight) attrs.push(`data-highlight="${meta.highlight}"`);
+          if (meta.noLang) attrs.push('data-no-lang');
+          return `${preTag} ${attrs.join(' ')}`;
+        } catch {
+          return match;
+        }
+      }
     );
   });
 

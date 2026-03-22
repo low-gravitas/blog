@@ -96,6 +96,20 @@
   font-style: italic;
 }
 
+.draft-badge {
+  display: inline-block;
+  font-size: 0.65em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--bg);
+  background: var(--lgz-bright-yellow, #d4a017);
+  border-radius: 4px;
+  padding: 0.15em 0.5em;
+  vertical-align: middle;
+  margin-right: 0.25em;
+}
+
 .feed-link {
   margin-top: 8px;
 }
@@ -358,9 +372,110 @@
   cursor: help;
 }
 
-/* Language label on code blocks */
+/* ── Enhanced code blocks ────────────────────────────────────────────────── */
+
+/* All code blocks get relative positioning for overlays */
 .post-content pre[class*="language-"] {
   position: relative;
+  padding-top: 2.5em; /* room for header bar */
+}
+
+/* Language label — top-left */
+.post-content pre[class*="language-"]::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 0.7rem;
+  font-family: inherit;
+  color: var(--text-dim);
+  padding: 0.35em 0.75em;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Hide language label when data-no-lang is set */
+.post-content pre[data-no-lang]::before {
+  display: none;
+}
+
+/* Title bar — overrides the language label */
+.post-content pre[data-title]::before {
+  content: attr(data-title);
+  text-transform: none;
+  letter-spacing: normal;
+  font-style: italic;
+  opacity: 0.85;
+}
+
+/* Copy button */
+.code-copy-btn {
+  position: absolute;
+  top: 0.35em;
+  right: 0.5em;
+  background: transparent;
+  border: 1px solid var(--border-dim);
+  border-radius: 4px;
+  color: var(--text-dim);
+  font-size: 0.7rem;
+  padding: 0.25em 0.5em;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s, background 0.15s, color 0.15s;
+  font-family: inherit;
+  z-index: 1;
+}
+
+.post-content pre:hover .code-copy-btn,
+.code-copy-btn:focus-visible {
+  opacity: 1;
+}
+
+.code-copy-btn:hover {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.code-copy-btn[data-copied] {
+  opacity: 1;
+  color: var(--lgz-bright-green, #88c070);
+  border-color: var(--lgz-bright-green, #88c070);
+}
+
+/* Line numbers */
+.post-content pre[data-line-numbers] code {
+  counter-reset: line;
+}
+
+.post-content pre[data-line-numbers] code .highlight-line {
+  display: inline-block;
+  width: 100%;
+}
+
+.post-content pre[data-line-numbers] code .highlight-line::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 2.5em;
+  margin-right: 1em;
+  text-align: right;
+  color: var(--text-dim);
+  opacity: 0.4;
+  font-size: 0.85em;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Line highlighting */
+.post-content pre .highlight-line[data-highlighted] {
+  background: rgba(255, 255, 134, 0.06);
+  margin-left: -1.5em;
+  margin-right: -1.5em;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  border-left: 2px solid var(--accent);
 }
 
 /* ── Images ──────────────────────────────────────────────────────────────── */

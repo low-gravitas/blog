@@ -69,6 +69,59 @@
 
 
 <script>
+/* ── Code block enhancements ── */
+(function () {
+  document.querySelectorAll('pre[class*="language-"]').forEach(function (pre) {
+    // Extract language from class
+    var langMatch = pre.className.match(/language-(\w+)/);
+    if (langMatch && !pre.hasAttribute('data-no-lang')) {
+      pre.setAttribute('data-lang', langMatch[1]);
+    }
+
+    // Add copy button
+    var btn = document.createElement('button');
+    btn.className = 'code-copy-btn';
+    btn.textContent = 'Copy';
+    btn.setAttribute('aria-label', 'Copy code to clipboard');
+    btn.addEventListener('click', function () {
+      var code = pre.querySelector('code');
+      var text = code ? code.textContent : pre.textContent;
+      navigator.clipboard.writeText(text).then(function () {
+        btn.textContent = 'Copied!';
+        btn.setAttribute('data-copied', '');
+        setTimeout(function () {
+          btn.textContent = 'Copy';
+          btn.removeAttribute('data-copied');
+        }, 1500);
+      });
+    });
+    pre.appendChild(btn);
+
+    // Apply line highlighting if data-highlight is set
+    var highlight = pre.getAttribute('data-highlight');
+    if (highlight) {
+      var lines = new Set();
+      highlight.split(',').forEach(function (part) {
+        part = part.trim();
+        if (part.indexOf('-') > -1) {
+          var range = part.split('-').map(Number);
+          for (var i = range[0]; i <= range[1]; i++) lines.add(i);
+        } else {
+          lines.add(Number(part));
+        }
+      });
+      var lineEls = pre.querySelectorAll('.highlight-line');
+      lineEls.forEach(function (el, idx) {
+        if (lines.has(idx + 1)) {
+          el.setAttribute('data-highlighted', '');
+        }
+      });
+    }
+  });
+})();
+</script>
+
+<script>
 (function () {
   var dlg = document.createElement('dialog');
   dlg.className = 'img-lightbox';
