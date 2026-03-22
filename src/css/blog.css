@@ -432,7 +432,7 @@
 .post-content .img-left {
   float: left;
   width: 40%;
-  margin: 0.25em 1.5em 0.25em 0;
+  margin: 0 1.5em 0 0;
   clear: left;
 }
 
@@ -440,8 +440,27 @@
 .post-content .img-right {
   float: right;
   width: 40%;
-  margin: 0.25em 0 0.25em 1.5em;
+  margin: 0 0 0 1.5em;
   clear: right;
+}
+
+/*
+ * Baseline grid alignment for floated images.
+ * Text line-height is 1.75rem (28px at 16px base).
+ * The figure's total height must be a multiple of this
+ * so text wraps cleanly underneath without a partial-line gap.
+ *
+ * Figure outer height = img height + border (2px) + caption-margin (4px)
+ *                       + caption height (~17px) = img + ~23px
+ *
+ * We set img height to (N * 1.75rem - 1.5rem) and use object-fit: cover
+ * to crop. The ~1.5rem accounts for caption + border overhead, kept
+ * slightly under the exact value so text always has room to start.
+ */
+.post-content .img-left img,
+.post-content .img-right img {
+  height: calc(6 * 1.75rem - 1.5rem);
+  object-fit: cover;
 }
 
 /* ── Lightbox ────────────────────────────────────────────────────────────── */
