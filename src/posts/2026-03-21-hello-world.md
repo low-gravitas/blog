@@ -17,8 +17,8 @@ Most developer tools default to high-contrast, high-blue-light interfaces. That'
 
 The two main projects so far:
 
-- **[Low Gravitas Zen](/low-gravitas-zen-theme/)** — a color theme for editors and terminals. The palette is built around warm browns and yellows for backgrounds, with carefully tuned ANSI colors that maintain WCAG AA contrast while staying in the warm end of the spectrum.
-- **[Low Gravitas Symbols](/low-gravitas-symbol-font/)** — a single font file with 11,800+ glyphs from Nerd Fonts, Font Awesome, Material Design Icons, and more. One font, no subsetting headaches.
+- **[Low Gravitas Zen](https://lowgravitas.com/low-gravitas-zen-theme/)** — a color theme for editors and terminals. The palette is built around warm browns and yellows for backgrounds, with carefully tuned ANSI colors that maintain WCAG AA contrast while staying in the warm end of the spectrum.
+- **[Low Gravitas Symbols](https://lowgravitas.com/low-gravitas-symbol-font/)** — a single font file with 11,800+ glyphs from Nerd Fonts, Font Awesome, Material Design Icons, and more. One font, no subsetting headaches.
 
 ## A quick code example
 
@@ -62,7 +62,7 @@ We'll be writing about:
 - Technical deep-dives on the symbol font — how 11,800 glyphs get packed into one file, the CSS subset builder, and terminal rendering quirks
 - Tooling and workflow posts — the scripts and automation we use to maintain the projects
 
-If any of that sounds interesting, grab the [RSS feed](/blog/feed.xml) or watch the [GitHub org](https://github.com/low-gravitas).
+If any of that sounds interesting, grab the [RSS feed](/feed.xml) or watch the [GitHub org](https://github.com/low-gravitas).
 
 ---
 
