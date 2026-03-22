@@ -83,11 +83,22 @@
   dlg.appendChild(closeBtn);
   document.body.appendChild(dlg);
 
-  function openLightbox(href, alt) {
+  var triggerEl = null;
+
+  function openLightbox(href, alt, trigger) {
+    triggerEl = trigger || null;
     dlgImg.src = href;
     dlgImg.alt = alt || '';
     dlg.showModal();
   }
+
+  // Restore focus to the triggering element when closed
+  dlg.addEventListener('close', function () {
+    if (triggerEl) {
+      triggerEl.focus();
+      triggerEl = null;
+    }
+  });
 
   // Close when clicking the backdrop (outside the image)
   dlg.addEventListener('click', function (e) {
@@ -100,7 +111,7 @@
     var thumb = link.querySelector('img');
     link.addEventListener('click', function (e) {
       e.preventDefault();
-      openLightbox(link.href, thumb ? thumb.alt : '');
+      openLightbox(link.href, thumb ? thumb.alt : '', link);
     });
   });
 })();

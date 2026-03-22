@@ -1,7 +1,7 @@
 ---
 title: Image layout test
 date: 2026-03-22
-author: Low Gravitas
+author: Mike Abney
 description: Demonstrating the four image layout modes — full, center, left float, and right float — with click-to-zoom lightbox.
 layout: post.njk
 ---
