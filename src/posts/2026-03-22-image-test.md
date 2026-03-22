@@ -44,6 +44,41 @@ A right-floated image mirrors the left variant — 40% width, text wraps on the 
 
 This paragraph wraps to the left of the image. Right floats work well when you want to balance a page that has already used a left float, or when the image has a directional subject that naturally faces into the text. Typographically, the float margin is set to `1.75em` on the text side and `0` on the outer edge, keeping the image flush with the content boundary while giving the prose room to breathe. At mobile widths all four layout modes collapse to full-width — the float is cleared, the width becomes 100%, and the reading experience stays linear.
 
+## Code blocks
+
+Code blocks use the Zen theme palette for syntax highlighting. Here's a Python example:
+
+```python
+from typing import Generator
+
+def fibonacci(n: int) -> Generator[int, None, None]:
+    """Yield the first n Fibonacci numbers."""
+    a, b = 0, 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b
+
+# Print the first 10
+for i, value in enumerate(fibonacci(10)):
+    print(f"  F({i}) = {value}")
+```
+
+And some JavaScript:
+
+```js
+async function fetchTheme(name) {
+  const res = await fetch(`/api/themes/${name}`);
+  if (!res.ok) throw new Error(`Theme not found: ${name}`);
+  const { palette, metadata } = await res.json();
+  return { palette, metadata };
+}
+
+const { palette } = await fetchTheme('low-gravitas-zen');
+console.log(`Loaded ${Object.keys(palette).length} color tokens`);
+```
+
+Inline code like `--lgz-bg-deep` and `var(--accent)` uses a slightly different style — a subtle background with a green tint.
+
 ---
 
 All images are clickable — a native `<dialog>` lightbox opens with a blurred backdrop. Escape closes it. The `<a class="img-link">` wrapper also provides progressive enhancement: without JavaScript, clicking navigates directly to the source image.
