@@ -432,7 +432,7 @@
 .post-content .img-left {
   float: left;
   width: 45%;
-  margin: 0 1.5em 0 0;
+  margin: 0.125rem 1.5em 0.125rem 0;
   clear: left;
 }
 
@@ -440,7 +440,7 @@
 .post-content .img-right {
   float: right;
   width: 45%;
-  margin: 0 0 0 1.5em;
+  margin: 0.125rem 0 0.125rem 1.5em;
   clear: right;
 }
 
@@ -459,7 +459,7 @@
  */
 .post-content .img-left img,
 .post-content .img-right img {
-  height: calc(7 * 1.75rem - 1.3rem);
+  height: calc(7 * 1.75rem - 1.3rem - 0.25rem);
   object-fit: cover;
 }
 
