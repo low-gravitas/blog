@@ -46,7 +46,7 @@
 }
 
 .post-summary:hover {
-  border-color: var(--border, rgba(255, 255, 255, 0.15));
+  border-color: var(--accent);
 }
 
 .post-summary h2 {
@@ -134,7 +134,7 @@
 
 .post {
   max-width: 720px;
-  margin: 0 auto;
+  margin: 1rem auto;
   padding: 48px 40px 64px;
   background: var(--surface);
   border-radius: 12px;
