@@ -74,7 +74,13 @@
   dlg.className = 'img-lightbox';
   dlg.setAttribute('aria-label', 'Image lightbox');
   var dlgImg = document.createElement('img');
+  var closeBtn = document.createElement('button');
+  closeBtn.className = 'img-lightbox-close';
+  closeBtn.setAttribute('aria-label', 'Close');
+  closeBtn.textContent = '✕';
+  closeBtn.addEventListener('click', function () { dlg.close(); });
   dlg.appendChild(dlgImg);
+  dlg.appendChild(closeBtn);
   document.body.appendChild(dlg);
 
   function openLightbox(href, alt) {
