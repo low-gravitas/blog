@@ -4,6 +4,7 @@ date: 2026-03-22
 author: Mike Abney
 description: A comprehensive reference for all blog features — images, code blocks, typography, and frontmatter options.
 layout: post.njk
+draft: true
 ---
 
 This post documents all the features available when writing blog posts. Use it as a reference when authoring new content.
