@@ -129,7 +129,7 @@ Useful for terminal output or other unlabeled content.
 Place an HTML comment directly before the code fence:
 
 ```text
-<!-- code-meta: {"title": "filename.py", "lineNumbers": true, "highlight": "1,3-5", "noLang": true} -->
+&lt;!-- code-meta: {"title": "filename.py", "lineNumbers": true, "highlight": "1,3-5", "noLang": true} --&gt;
 ```
 
 All fields are optional:
