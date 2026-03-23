@@ -374,62 +374,58 @@
 
 /* ── Enhanced code blocks ────────────────────────────────────────────────── */
 
-/* All code blocks get relative positioning for overlays */
-.post-content pre[class*="language-"] {
+/* Wrapper — carries border, radius, margin; pre inside has none of these */
+.code-block {
   position: relative;
-  padding-top: 2.5em; /* room for header bar */
+  margin: 1.5em 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg);
 }
 
-/* Language label — top-left */
-.post-content pre[class*="language-"]::before {
-  content: attr(data-lang);
-  position: absolute;
-  top: 0;
-  left: 0;
+/* Header bar — sits outside the scrolling pre */
+.code-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.3em 0.75em;
+  border-bottom: 1px solid var(--border-dim);
+  background: var(--bg);
+}
+
+/* Language label */
+.code-block-label {
   font-size: 0.7rem;
-  font-family: inherit;
+  font-family: "SF Mono", "Fira Code", "JetBrains Mono", "Menlo", monospace;
   color: var(--text-dim);
-  padding: 0.35em 0.75em;
   opacity: 0.7;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
-/* Hide language label when data-no-lang is set */
-.post-content pre[data-no-lang]::before {
-  display: none;
-}
-
-/* Title bar — overrides the language label */
-.post-content pre[data-title]::before {
-  content: attr(data-title);
+.code-block-label[data-is-title] {
   text-transform: none;
   letter-spacing: normal;
   font-style: italic;
   opacity: 0.85;
 }
 
-/* Copy button */
+/* Copy button — always visible, no opacity trick */
 .code-copy-btn {
-  position: absolute;
-  top: 0.35em;
-  right: 0.5em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
   background: transparent;
   border: 1px solid var(--border-dim);
   border-radius: 4px;
   color: var(--text-dim);
-  font-size: 0.7rem;
-  padding: 0.25em 0.5em;
+  font-size: 0.75rem;
+  padding: 0.2em 0.45em;
   cursor: pointer;
-  opacity: 0;
-  transition: opacity 0.15s, background 0.15s, color 0.15s;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
   font-family: inherit;
-  z-index: 1;
-}
-
-.post-content pre:hover .code-copy-btn,
-.code-copy-btn:focus-visible {
-  opacity: 1;
+  line-height: 1.4;
 }
 
 .code-copy-btn:hover {
@@ -438,10 +434,22 @@
   border-color: var(--border);
 }
 
+.code-copy-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .code-copy-btn[data-copied] {
-  opacity: 1;
   color: var(--lgz-bright-green, #88c070);
   border-color: var(--lgz-bright-green, #88c070);
+}
+
+/* pre inside wrapper — strip border/radius/margin; keep overflow scroll */
+.post-content .code-block pre {
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 1.25em 1.5em;
 }
 
 /* Line numbers */
@@ -784,14 +792,17 @@ dialog.img-lightbox img {
     margin-bottom: 40px;
   }
 
-  .post-content pre {
-    padding: 1em;
-    font-size: 0.8rem;
+  .post-content .code-block {
     margin-left: -16px;
     margin-right: -16px;
     border-left: none;
     border-right: none;
     border-radius: 0;
+  }
+
+  .post-content .code-block pre {
+    padding: 1em;
+    font-size: 0.8rem;
   }
 
   /* All image layouts become full-width at mobile */
